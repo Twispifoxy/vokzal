@@ -1,0 +1,341 @@
+{
+  "station_trains": {
+    "description": "Список поездов, закрепленных за каждым вокзалом, с указанием их типа, названия и страны происхождения.",
+    "fields": {
+      "station_name": {
+        "description": "Название вокзала",
+        "source_table": "stations",
+        "source_column": "name",
+        "foreign_key": {
+          "table": "stations",
+          "key_column": "station_code"
+        },
+        "input_type": "dropdown"
+      },
+      "train_type_name": {
+        "description": "Тип поезда",
+        "source_table": "train_types",
+        "source_column": "name",
+        "foreign_key": {
+          "table": "train_types",
+          "key_column": "train_type_code"
+        },
+        "input_type": "dropdown"
+      },
+      "train_name": {
+        "description": "Название поезда",
+        "source_table": "trains",
+        "source_column": "name",
+        "input_type": "text"
+      },
+      "country_of_origin": {
+        "description": "Страна-производитель",
+        "source_table": "trains",
+        "source_column": "country_of_origin",
+        "input_type": "text"
+      }
+    },
+    "delete_map": {
+      "table": "trains",
+      "keys": [
+          "station_code",
+          "train_type_code",
+          "name"
+      ]
+    }
+  },
+
+  "route_stops": {
+    "description": "Полный список остановок для каждого маршрута, с указанием поезда, станции, времени прибытия и отправления.",
+    "fields": {
+      "route_code": {
+        "description": "Код маршрута",
+        "source_table": "routes",
+        "source_column": "route_code",
+        "input_type": "dropdown"
+      },
+      "stop_number": {
+        "description": "Номер остановки",
+        "source_table": "route_data",
+        "source_column": "stop_number",
+        "input_type": "number"
+      },
+      "station_name": {
+        "description": "Название вокзала",
+        "source_table": "stations",
+        "source_column": "name",
+        "foreign_key": {
+          "table": "stations",
+          "key_column": "station_code"
+        },
+        "input_type": "dropdown"
+      },
+      "arrival_time": {
+        "description": "Время прибытия",
+        "source_table": "route_data",
+        "source_column": "arrival_time",
+        "input_type": "datetime"
+      },
+      "departure_time": {
+        "description": "Время отправления",
+        "source_table": "route_data",
+        "source_column": "departure_time",
+        "input_type": "datetime"
+      }
+    },
+    "delete_map": {
+      "table": "route_data",
+      "keys": [
+        "route_code",
+        "stop_number"
+      ]
+    }
+  },
+
+  "staff_details": {
+    "description": "Список сотрудников с информацией о бригаде, должности и стаже работы.",
+    "fields": {
+      "inn": {
+        "description": "ИНН сотрудника",
+        "source_table": "staff",
+        "source_column": "inn",
+        "input_type": "staff_inn"
+      },
+      "fio": {
+        "description": "ФИО сотрудника",
+        "source_table": "staff",
+        "source_column": "fio",
+        "input_type": "text"
+      },
+      "age": {
+        "description": "Возраст",
+        "source_table": "staff",
+        "source_column": "age",
+        "input_type": "number"
+      },
+      "gender": {
+        "description": "Пол",
+        "source_table": "staff",
+        "source_column": "gender",
+        "input_type": "gender_dropdown"
+      },
+      "position_name": {
+        "description": "Должность",
+        "source_table": "positions",
+        "source_column": "name",
+        "foreign_key": {
+            "table": "positions",
+            "key_column": "position_code"
+        },
+        "input_type": "dropdown"
+      },
+      "brigade_name": {
+        "description": "Бригада",
+        "source_table": "brigades",
+        "source_column": "name",
+        "foreign_key": {
+            "table": "brigades",
+            "key_column": "brigade_code"
+        },
+        "input_type": "dropdown"
+      },
+      "experience_years": {
+        "description": "Стаж работы",
+        "source_table": "staff",
+        "source_column": "experience_years",
+        "input_type": "number"
+      }
+    },
+    "delete_map": {
+      "table": "staff",
+      "keys": [
+          "inn"
+      ]
+    }
+  },
+
+  "brigade_routes": {
+    "description": "Список бригад с информацией о маршрутах.",
+    "fields": {
+      "brigade_name": {
+        "description": "Название бригады",
+        "source_table": "brigades",
+        "source_column": "name",
+        "input_type": "text"
+      },
+      "route_code": {
+        "description": "Код маршрута",
+        "source_table": "routes",
+        "source_column": "route_code",
+        "input_type": "dropdown"
+      },
+      "owner_station_name": {
+        "description": "Вокзал-владелец маршрута",
+        "source_table": "stations",
+        "source_column": "name",
+        "input_type": "hide"
+      },
+      "train_name": {
+        "description": "Название поезда",
+        "source_table": "trains",
+        "source_column": "name",
+        "input_type": "hide"
+      }
+    }
+  },
+
+  "stations": {
+    "description": "Список вокзалов с их кодами, наименованиями, ИНН и адресами.",
+    "fields": {
+      "station_code": {
+        "description": "Код вокзала",
+        "source_table": "stations",
+        "source_column": "station_code",
+        "input_type": "hide"
+      },
+      "name": {
+        "description": "Наименование вокзала",
+        "source_table": "stations",
+        "source_column": "name",
+        "input_type": "text"
+      },
+      "inn": {
+        "description": "ИНН вокзала",
+        "source_table": "stations",
+        "source_column": "inn",
+        "input_type": "station_inn"
+      },
+      "address": {
+        "description": "Адрес вокзала",
+        "source_table": "stations",
+        "source_column": "address",
+        "input_type": "text"
+      }
+    },
+    "delete_map": {
+      "table": "stations",
+      "keys": [
+          "station_code"
+      ]
+    }
+  },
+
+  "train_types": {
+    "description": "Список типов поездов с их кодами и наименованиями.",
+    "fields": {
+      "train_type_code": {
+        "description": "Код типа поезда",
+        "source_table": "train_types",
+        "source_column": "train_type_code",
+        "input_type": "hide"
+      },
+      "name": {
+        "description": "Наименование типа",
+        "source_table": "train_types",
+        "source_column": "name",
+        "input_type": "text"
+      }
+    },
+    "delete_map": {
+      "table": "train_types",
+      "keys": [
+          "train_type_code"
+      ]
+    }
+  },
+
+  "positions": {
+    "description": "Список должностей с их кодами и наименованиями.",
+    "fields": {
+      "position_code": {
+        "description": "Код должности",
+        "source_table": "positions",
+        "source_column": "position_code",
+        "input_type": "hide"
+      },
+      "name": {
+        "description": "Наименование должности",
+        "source_table": "positions",
+        "source_column": "name",
+        "input_type": "text"
+      }
+    },
+    "delete_map": {
+      "table": "positions",
+      "keys": [
+          "position_code"
+      ]
+    }
+  },
+
+  "routes": {
+    "description": "Список маршрутов с информацией о вокзалах, поездах, времени отправления и прибытия.",
+    "fields": {
+      "route_code": {
+        "description": "Код маршрута",
+        "source_table": "routes",
+        "source_column": "route_code",
+        "input_type": "hide"
+      },
+      "owner_station_code": {
+        "description": "Код вокзала владельца",
+        "source_table": "stations",
+        "source_column": "name",
+        "foreign_key": {
+            "table": "stations",
+            "key_column": "station_code"
+        },
+        "input_type": "dropdown"
+      },
+      "train_code": {
+        "description": "Код поезда",
+        "source_table": "trains",
+        "source_column": "name",
+        "foreign_key": {
+            "table": "trains",
+            "key_column": "train_code"
+        },
+        "input_type": "dropdown"
+      },
+      "departure_station_code": {
+        "description": "Код вокзала отправления",
+        "source_table": "stations",
+        "source_column": "name",
+        "foreign_key": {
+            "table": "stations",
+            "key_column": "station_code"
+        },
+        "input_type": "dropdown"
+      },
+      "arrival_station_code": {
+        "description": "Код вокзала прибытия",
+        "source_table": "stations",
+        "source_column": "name",
+        "foreign_key": {
+            "table": "stations",
+            "key_column": "station_code"
+        },
+        "input_type": "dropdown"
+      },
+      "departure_time": {
+        "description": "Время отправления",
+        "source_table": "routes",
+        "source_column": "departure_time",
+        "input_type": "datetime"
+      },
+      "arrival_time": {
+        "description": "Время прибытия",
+        "source_table": "routes",
+        "source_column": "arrival_time",
+        "input_type": "datetime"
+      }
+    },
+    "delete_map": {
+      "table": "routes",
+      "keys": [
+          "route_code"
+      ]
+    }
+  }
+}
+
